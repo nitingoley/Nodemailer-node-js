@@ -25,7 +25,7 @@ app.get('/user/login', (req, res) => {
     res.render("login");
 })
 
-app.get('/user/home', (req, res) => {
+app.get('/', (req, res) => {
     res.render("home");
 })
 
