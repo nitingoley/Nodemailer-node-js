@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "init": "^0.1.2",
+    "mailgen": "^2.0.28",
+    "mongoose": "^6.12.2",
     "nodemailer": "^6.9.8"
   }
 }
