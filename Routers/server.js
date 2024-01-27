@@ -1,39 +1,37 @@
-// const  mongoose  = require("mongoose");
+// let mongoose = require("mongoose");
 
-// mongoose.set("strictQuery" , false);
+// mongoose.set('strictQuery' , true);
 
-// mongoose.connect('mongodb://127.0.0.1:27017/Auth_user' , (er)=>{
-//     if(!er)
-//     {
-//         console.log("Db is connect !");
-//     }
-//     else
-//     {
-//         console.log("DB is not connect " +er);
-//     }
-// });
+
+// mongoose.connect("mongodb://127.0.0.1:27017/FeedBack_db", (er)=>{
+//    if(er)
+//    {
+//        console.log("DB 2nd not connect");
+//    }
+//    else
+//    {
+//        console.log("DB is connected");
+//    }
+// })
+
+
+// const SchemaUser = new mongoose.Schema({
  
-
-// const UserSchema = new mongoose.Schema({
-//     name:{
-//         type: String , 
-//         required : true,
-//     },
-//     email:{
-//         type: String , 
-//         required : true,
-//         unique : true,
-//     },
-//     password:{
-//         type: String , 
-//         required : true,
-//     } 
-// },{
-//         timestamps :true
-//     }
-// );
-
-// const model = new mongoose.model("User-auth" , UserSchema);
+//    name1: {
+//        type: String , 
+//        required: true,
+// //    },
+//    gmail : {
+//        type :String, 
+//        required: true
+//    },
+//    message : {
+//        type :String ,
+//        required: true,
+//    }
+// });
 
 
-// module.exports = model;
+// const UserModel = new mongoose.model("UserfeedBack" , SchemaUser);
+
+// module.exports = UserModel;

@@ -3,29 +3,28 @@ const app = express();
 const ejs = require("ejs");
 const port = process.env.PORT || 900;
 const path = require('path');
-//  require("./Routers/server.js");
-// const model = require('./Routers/server.js')
-const model =require("./models/db.js")
-// app.get('/', (req, res) => {
-//     res.send("This is the home page")
-// })
+const model = require("./models/db.js")
 
-
+ 
 app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, "../public")));
+ 
+
+
+
+app.set("views" , path.join(__dirname , "./views"));
 app.set('view engine', "ejs")
 
 
 
-app.get('/user/sign', (req, res) => {
+app.get('/signup', (req, res) => {
     res.render("signup");
 })
 
-app.get('/user/login', (req, res) => {
+app.get('/login', (req, res) => {
     res.render("login");
 })
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.render("home");
 })
 
@@ -33,12 +32,14 @@ app.get('/', (req, res) => {
 app.use(express.urlencoded({ extended: false }))
 
 
-
+app.get("/" , (req , res)=>{
+    res.render("main");
+})
 
 
 // for signup 
 
-app.post("/user/sign", async (req, res) => {
+app.post("/sign", async (req, res) => {
 
     const { name, email, password } = req.body;
     try {
@@ -53,14 +54,13 @@ app.post("/user/sign", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
 })
 
 
 // for login 
 
 
-app.post("/user/login", async (req, res) => {
+app.post("/login", async (req, res) => {
 
     const {email, password } = req.body;
    
@@ -76,7 +76,35 @@ app.post("/user/login", async (req, res) => {
 
 })
 
+    //  code for FeedBack 
+     
+    app.post("/message" , async (req , res)=>{
+         const{name , email} = req.body;
+        
+         try{
+            const UserData = new model({
+                name , email})
+         
+         const DB_data = await UserData.save();
+          console.log(DB_data);
+              res.send('FeedBack is Send to team');   
+        } catch(e)
+        {
+            res.status(400).send(e);
+            console.log(e);
+        }
 
+    })
+
+
+
+
+
+
+
+app.get('/contact', (req ,res)=>{
+    res.render('contact')
+})
 
 
 
