@@ -3,11 +3,71 @@ const app = express();
 const ejs = require("ejs");
 const port = process.env.PORT || 900;
 const path = require('path');
-const model = require("./models/db.js")
+// const model = require("./models/db.js")
+const  mongoose  = require("mongoose");
+require("dotenv").config();
+app.use(express.static('public'));
+
+mongoose.set('strictQuery', false);
+
+
+const userpass = process.env.MONGODB_PASSWORD;
+
+
+mongoose.connect(`mongodb+srv://nitingoley1:${userpass}@cluster0.y2wcksp.mongodb.net/?retryWrites=true&w=majority`).then(()=>{
+    console.log("Database is connected");
+}).catch((e)=>{
+    console.log(e);
+})
 
  
-app.use(express.static('public'));
+const UserSchema = new mongoose.Schema({
+    name:{
+        type: String , 
+        required : true,
+    },
+    email:{
+        type: String , 
+        required : true,
+        unique : true,
+    },
+    password:{
+        type: String , 
+        required : true,
+    } ,
+     
  
+});
+
+const PostSchema = new mongoose.Schema({
+    name1: {
+               type: String , 
+               required: true,
+          },
+           gmail : {
+               type :String, 
+               required: true
+           },
+           message : {
+               type :String ,
+               required: true,
+           }
+        });
+
+
+
+
+
+
+const model = new mongoose.model("User-auth" , UserSchema);
+const FeedBack = new mongoose.model("UserFeedBack" , PostSchema);
+ 
+
+
+module.exports =  model;
+  
+
+
 
 
 
@@ -79,15 +139,15 @@ app.post("/login", async (req, res) => {
     //  code for FeedBack 
      
     app.post("/message" , async (req , res)=>{
-         const{name , email} = req.body;
+         const{name1 , gmail , message} = req.body;
         
          try{
-            const UserData = new model({
-                name , email})
+            const UserData = new FeedBack({
+                name1 , gmail , message})
          
          const DB_data = await UserData.save();
           console.log(DB_data);
-              res.send('FeedBack is Send to team');   
+              return res.redirect("home")
         } catch(e)
         {
             res.status(400).send(e);
